@@ -1,0 +1,5 @@
+Python Developer - Sample Job Description
+
+Required skills: Python, SQL, Flask, REST APIs, Git, unit testing, data analysis.
+Good to have: Docker, AWS, machine learning, Generative AI, prompt engineering.
+Responsibilities include building API integrations, debugging issues, writing tests, and documenting code.

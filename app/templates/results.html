@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Analysis Results · Resume Match Lab</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <main class="shell">
+    <header class="hero compact">
+      <div class="eyebrow">ANALYSIS COMPLETE</div>
+      <h1>Your match <span>report</span></h1>
+      <p>File analyzed: {{ filename }}</p>
+    </header>
+    <section class="score-grid">
+      <div class="score-card"><div class="score">{{ result.score }}<small>/100</small></div><p>Keyword match estimate</p></div>
+      <div class="metric"><strong>{{ result.skill_coverage }}%</strong><span>Listed skill coverage</span></div>
+      <div class="metric"><strong>{{ result.term_coverage }}%</strong><span>Job term overlap</span></div>
+    </section>
+    <div class="notice">{{ result.note }}</div>
+    <section class="columns">
+      <article class="panel">
+        <h2>Matched skills <span class="count">{{ result.matched_skills|length }}</span></h2>
+        {% if result.matched_skills %}<ul class="chips">{% for item in result.matched_skills %}<li class="good">{{ item }}</li>{% endfor %}</ul>{% else %}<p>No mapped skills matched. Review the job requirements manually.</p>{% endif %}
+      </article>
+      <article class="panel">
+        <h2>Skills to review <span class="count">{{ result.missing_skills|length }}</span></h2>
+        {% if result.missing_skills %}<ul class="chips">{% for item in result.missing_skills %}<li class="warn">{{ item }}</li>{% endfor %}</ul>{% else %}<p>No mapped skill gaps detected by this baseline.</p>{% endif %}
+        <p class="fineprint">Only add a skill to your resume if you genuinely have it and can explain or demonstrate it.</p>
+      </article>
+    </section>
+    <section class="columns">
+      <article class="panel"><h2>Shared job terms</h2>{% if result.shared_terms %}<ul class="term-list">{% for term in result.shared_terms %}<li>{{ term }}</li>{% endfor %}</ul>{% else %}<p>No shared terms found.</p>{% endif %}</article>
+      <article class="panel"><h2>Terms to review</h2>{% if result.missing_terms %}<ul class="term-list">{% for term in result.missing_terms %}<li>{{ term }}</li>{% endfor %}</ul>{% else %}<p>No additional terms flagged.</p>{% endif %}</article>
+    </section>
+    <div class="actions"><a class="button" href="{{ url_for('index') }}">Analyze another resume</a><button class="secondary" onclick="window.print()">Print / Save as PDF</button></div>
+    <footer>Use this report as a checklist, not as a hiring prediction.</footer>
+  </main>
+</body>
+</html>

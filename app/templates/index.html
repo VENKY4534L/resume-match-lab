@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Resume Match Lab</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <main class="shell">
+    <header class="hero">
+      <div class="eyebrow">CAREER TOOLKIT · PROJECT 03</div>
+      <h1>Resume Match <span>Lab</span></h1>
+      <p>Compare a resume with a job description. See relevant skill matches, missing keywords, and practical areas to review.</p>
+    </header>
+    <section class="panel">
+      <h2>Analyze a resume</h2>
+      {% if error %}<div class="error" role="alert">{{ error }}</div>{% endif %}
+      <form action="{{ url_for('analyze') }}" method="post" enctype="multipart/form-data">
+        <label for="resume">Resume PDF</label>
+        <input id="resume" name="resume" type="file" accept=".pdf,application/pdf" required>
+        <label for="job_description">Job description</label>
+        <textarea id="job_description" name="job_description" rows="10" placeholder="Paste the full job description here..." required></textarea>
+        <button type="submit">Analyze match <span aria-hidden="true">→</span></button>
+      </form>
+      <p class="fineprint">Privacy: the app processes the uploaded file in memory and does not save the resume to disk. Avoid uploading sensitive information to any tool you do not trust.</p>
+    </section>
+    <footer>Python · Flask · PyMuPDF · Keyword matching</footer>
+  </main>
+</body>
+</html>
